@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bom_demand_form_view" model="ir.ui.view">
+        <field name="name">bom.demand.form</field>
+        <field name="model">bom.demand</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Generate Purchase" name="button_generate_purchase" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                    <button string="Reset To Draft" name="button_reset_to_draft" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('purchase_count', '!=', 0)]}"/>
+                    <button string="Delete Purchase Order" name="button_delete_all_purchase" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('purchase_count', '=', 0)]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_bom_demand_purchases" type="object" class="oe_stat_button" icon="fa-credit-card">
+                            <div class="o_stat_info">
+                                <field name="purchase_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Purchases</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bom_id"/>
+                            <field name="bom_qty"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="structure" string="Structure">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="top" default_order="sequence" decoration-info="type=='component'" decoration-success="type=='part'" decoration-danger="demand_qty>0 and type=='part'">
+                                    <field name="sequence"/>
+                                    <field name="level"/>
+                                    <field name="product_id"/>
+                                    <field name="type"/>
+                                    <field name="qty"/>
+                                    <field name="stock_qty"/>
+                                    <field name="demand_qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="misc" string="Miscellaneous">
+                            <group>
+                                <field name="comment"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bom_demand_list_view" model="ir.ui.view">
+        <field name="name">bom.demand.tree</field>
+        <field name="model">bom.demand</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="bom_id"/>
+                <field name="bom_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_bom_demand_list">
+        <field name="name">BOM Demand</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bom.demand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bom_demand_list"
+              name="BOM Demand"
+              sequence="1"
+              action="action_bom_demand_list"
+              parent="mrp.mrp_planning_menu_root"/>
+
+</odoo>

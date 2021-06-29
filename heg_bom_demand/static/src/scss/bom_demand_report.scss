@@ -1,0 +1,16 @@
+#bom_demand_table{
+    tr{
+        border:none;
+    }
+    th{
+        background-color:black;
+    }
+    td{
+        background-color: white;
+        color: black;
+        border-top: 1px solid #ced4da;
+        &:last-child {
+            background-color: #e9ecef;
+        }
+    }
+}

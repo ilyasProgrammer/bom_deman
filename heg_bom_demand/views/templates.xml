@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_assets_common" inherit_id="web.report_assets_common">
+            <xpath expr="link[last()]" position="after">
+                <link rel="stylesheet" type="text/scss" href="/heg_bom_demand/static/src/scss/bom_demand_report.scss"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

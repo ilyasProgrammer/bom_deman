@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <report id="action_report_bom_demand_complete"
+            string="Complete Structure"
+            model="bom.demand"
+            report_type="qweb-pdf"
+            name="heg_bom_demand.report_bom_demand_complete"
+            file="heg_bom_demand.bom_demand"
+            paperformat="base.paperformat_euro"
+            print_report_name="'%s' % (object.display_name)"/>
+
+    <template id="report_bom_demand_complete">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=user.lang)"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>BOM Complete Demand</h2>
+                        <p t-field="doc.name"/>
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm" id="bom_demand_table">
+                                    <thead>
+                                        <tr>
+                                            <th><span>#</span></th>
+                                            <th><span>Level</span></th>
+                                            <th><span>Product</span></th>
+                                            <th><span>Type</span></th>
+                                            <th><span>Quantity</span></th>
+                                            <th><span>In Stock</span></th>
+                                            <th><span>Demand</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.line_ids" t-as="l">
+                                            <tr>
+                                                <td><span t-esc="l.sequence"/></td>
+                                                <td><span t-esc="l.level"/></td>
+                                                <td><span t-esc="l.product_id.name"/></td>
+                                                <td><span t-esc="l.type"/></td>
+                                                <td><span t-esc="l.qty"/></td>
+                                                <td><span t-esc="l.stock_qty"/></td>
+                                                <td><span t-esc="l.demand_qty"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <report id="action_report_bom_demand_only"
+            string="Demand Only"
+            model="bom.demand"
+            report_type="qweb-pdf"
+            name="heg_bom_demand.report_bom_demand_only"
+            file="heg_bom_demand.bom_demand"
+            paperformat="base.paperformat_euro"
+            print_report_name="'%s' % (object.display_name)"/>
+
+    <template id="report_bom_demand_only">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=user.lang)"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>BOM Demand Only</h2>
+                        <p t-field="doc.name"/>
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm" id="bom_demand_table">
+                                    <thead>
+                                        <tr>
+                                            <th><span>#</span></th>
+                                            <th><span>Level</span></th>
+                                            <th><span>Product</span></th>
+                                            <th><span>Type</span></th>
+                                            <th><span>Quantity</span></th>
+                                            <th><span>In Stock</span></th>
+                                            <th><span>Demand</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.line_ids" t-as="l">
+                                            <t t-if="l.demand_qty > 0">
+                                                <tr>
+                                                    <td><span t-esc="l.sequence"/></td>
+                                                    <td><span t-esc="l.level"/></td>
+                                                    <td><span t-esc="l.product_id.name"/></td>
+                                                    <td><span t-esc="l.type"/></td>
+                                                    <td><span t-esc="l.qty"/></td>
+                                                    <td><span t-esc="l.stock_qty"/></td>
+                                                    <td><span t-esc="l.demand_qty"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <report id="action_report_bom_demand_only_parts"
+            string="Demand Only Parts"
+            model="bom.demand"
+            report_type="qweb-pdf"
+            name="heg_bom_demand.report_bom_demand_only_parts"
+            file="heg_bom_demand.bom_demand"
+            paperformat="base.paperformat_euro"
+            print_report_name="'%s' % (object.display_name)"/>
+
+    <template id="report_bom_demand_only_parts">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=user.lang)"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>BOM Demand Only Parts</h2>
+                        <p t-field="doc.name"/>
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm" id="bom_demand_table">
+                                    <thead>
+                                        <tr>
+                                            <th><span>#</span></th>
+                                            <th><span>Level</span></th>
+                                            <th><span>Product</span></th>
+                                            <th><span>Type</span></th>
+                                            <th><span>Quantity</span></th>
+                                            <th><span>In Stock</span></th>
+                                            <th><span>Demand</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.line_ids" t-as="l">
+                                            <t t-if="l.demand_qty > 0 and l.type=='part'">
+                                                <tr>
+                                                    <td><span t-esc="l.sequence"/></td>
+                                                    <td><span t-esc="l.level"/></td>
+                                                    <td><span t-esc="l.product_id.name"/></td>
+                                                    <td><span t-esc="l.type"/></td>
+                                                    <td><span t-esc="l.qty"/></td>
+                                                    <td><span t-esc="l.stock_qty"/></td>
+                                                    <td><span t-esc="l.demand_qty"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+    <report id="action_report_bom_demand_only_parts_grouped"
+            string="Demand Only Parts Grouped"
+            model="bom.demand"
+            report_type="qweb-pdf"
+            name="heg_bom_demand.report_bom_demand_only_parts_grouped"
+            file="heg_bom_demand.bom_demand"
+            paperformat="base.paperformat_euro"
+            print_report_name="'%s' % (object.display_name)"/>
+
+    <template id="report_bom_demand_only_parts_grouped">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=user.lang)"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>BOM Demand Only Parts Grouped</h2>
+                        <p t-field="doc.name"/>
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm" id="bom_demand_table">
+                                    <thead>
+                                        <tr>
+                                            <th><span>Product</span></th>
+                                            <th><span>Lines Count</span></th>
+                                            <th><span>Quantity</span></th>
+                                            <th><span>In Stock</span></th>
+                                            <th><span>Demand</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- lines_data composed by special report model -->
+                                        <t t-foreach="lines_data" t-as="l">
+                                            <tr>
+                                                <td><span t-esc="l['product_id'][1]"/></td>
+                                                <td><span t-esc="l['product_id_count']"/></td>
+                                                <td><span t-esc="l['qty']"/></td>
+                                                <td><span t-esc="l['stock_qty']"/></td>
+                                                <td><span t-esc="l['demand_qty']"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</data>
+</odoo>
